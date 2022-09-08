@@ -19,9 +19,9 @@ folder_title = ""
 ## find thread subject, if exists
 thread_subject = soup.find(class_="subject").text
 
-## remove every unallowed character from thread_subject
-disallowed_characters = ['\', '/', ':', '?', '"', '<', '>', '|']
-for character in disallowed_characters:
+## remove every illegal character from thread_subject
+illegal_characters = ['\', '/', ':', '?', '"', '<', '>', '|']
+for character in illegal_characters:
     thread_subject = thread_subject.replace(character, "")
 
 ## set name of folder to create
