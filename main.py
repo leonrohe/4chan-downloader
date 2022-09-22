@@ -42,23 +42,23 @@ except:
           dir + " .Maybe it already exists?")
 
 # get all media from thread
-media_all = soup.find_all(class_="fileThumb")
+media_all = soup.find_all(class_="fileText")
 file_count = len(media_all)
 
 print("Found " + str(file_count) +
       " downloadable media files. Starting to download ...")
 
 # loop through all media files and save them to folder
-z = 0
-for media in media_all:
+for i, media in enumerate(media_all):
 
-    print("Progress: " + str(z) + "/" + str(file_count), end='\r')
+    print("Progress: " + str(i) + "/" + str(file_count), end='\r')
 
-    link = "https:" + media.get("href")
-    filetype = os.path.splitext(link)[1]
+    link_element = media.find("a")
 
-    f = open(dir + "/" + str(z)+filetype, "wb")
+    filename = link_element.text
+    link = "https:" + link_element.get("href")
+
+    f = open(dir + "/" + filename, "wb")
     rr = requests.get(link)
     f.write(rr.content)
     f.close()
-    z = z + 1
